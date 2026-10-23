@@ -15,7 +15,7 @@ public class Hero {
             throw new IllegalArgumentException("Name cannot be null");
         }
         if (maxHP < 0){
-            throw new IllegalArgumentException("Max HP cannot be null");
+            throw new IllegalArgumentException("Max HP cannot be below zero");
         }
 
         this.name = name;
@@ -56,11 +56,19 @@ public class Hero {
         if (amount < 0){
             throw new IllegalArgumentException("Cannot heal with negative value");
         }
-        if ((amount + getCurrentHP()) > getCurrentHP()){
-            throw new IllegalArgumentException("Cannot inflate health pool by healing");
-        }
-        if{
 
+        if (getCurrentHP() == 0){
+            return;
+        }
+
+        if ((amount + getCurrentHP() > getMaxHP())){
+
+            this.currentHP = getMaxHP();
+        }
+
+        if ((amount + getCurrentHP() <= getMaxHP())) {
+            this.currentHP = amount + getCurrentHP();
+        }
 
     }
 
