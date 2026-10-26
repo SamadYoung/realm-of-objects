@@ -63,7 +63,8 @@ public class Hero {
         }
 
         if (getCurrentHP() == 0){
-            return;
+            return; // we return instead of throw because this is an in-game mechanic rather than
+                    // a bug in the code.
         }
 
         if ((amount + getCurrentHP() > getMaxHP())){

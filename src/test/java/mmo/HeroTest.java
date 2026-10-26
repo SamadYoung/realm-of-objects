@@ -9,9 +9,9 @@ class HeroTest {
     private Hero hero;
 
     @BeforeEach
-        // runs before EVERY test → each test gets a fresh lantern
+
     void setUp() {
-        hero = new Hero("Samad", 275);   // 100 fuel
+        hero = new Hero("Samad", 275);
     }
 
     @Test
@@ -48,19 +48,71 @@ class HeroTest {
 
 
     @Test
-    void takeDamageNeverGoesBelowZero() {
+    void properDamageValue() {
+        hero.takeDamage(75);
+        assertEquals(200, hero.getCurrentHP());
 
     }
 
     @Test
     void heal() {
+        hero.takeDamage(100);
+        hero.heal(90);
+        assertEquals(265,hero.getCurrentHP());
     }
 
     @Test
-    void isAlive() {
+    void zeroHPHeroIsNotAlive() {
+        hero.takeDamage(275);
+        assertFalse(hero.isAlive());
     }
 
     @Test
     void levelUp() {
+        hero.levelUp();
+        assertEquals(2, hero.getLevel());
+        assertEquals(285, hero.getMaxHP());
+        assertEquals(285, hero.getCurrentHP());
+    }
+    @Test
+    void overkillDamageClampsHPToZero() {
+        hero.takeDamage(300);
+        assertEquals(0, hero.getCurrentHP());
+    }
+
+    @Test
+    void negativeDamageThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> hero.takeDamage(-10));
+    }
+
+    @Test
+    void overHealClampsToMaxHP() {
+        hero.takeDamage(100);
+        hero.heal(200);
+        assertEquals(275, hero.getCurrentHP());
+    }
+
+    @Test
+    void healToExactlyMaxHP() {
+        hero.takeDamage(100);
+        hero.heal(100);
+        assertEquals(275, hero.getCurrentHP());
+    }
+
+    @Test
+    void deadHeroCannotBeHealed() {
+        hero.takeDamage(275);
+        hero.heal(50);
+        assertEquals(0, hero.getCurrentHP());
+    }
+
+    @Test
+    void negativeHealThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> hero.heal(-10));
+    }
+
+    @Test
+    void fullHPHeroIsAlive() {
+        assertTrue(hero.isAlive());
     }
 }

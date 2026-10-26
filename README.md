@@ -6,7 +6,7 @@ I'm building it one milestone at a time, with each milestone focused on one OOP 
 
 ## Progress
 
-- [ ] 1. Classes, constructors, encapsulation (`Hero`) *(in progress)*
+- [x] 1. Classes, constructors, encapsulation (`Hero`)
 - [ ] 2. `static` and constants
 - [ ] 3. Composition (`Item`, `Inventory`)
 - [ ] 4. Inheritance (`Warrior`, `Mage`, `Healer`, `Weapon`, `Potion`)
