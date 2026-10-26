@@ -11,11 +11,11 @@ public class Hero {
 
     public Hero(String name, int maxHP) {
 
-        if (name == null){
-            throw new IllegalArgumentException("Name cannot be null");
+        if (name == null || name.isBlank()){
+            throw new IllegalArgumentException("Name cannot be null or blank");
         }
-        if (maxHP < 0){
-            throw new IllegalArgumentException("Max HP cannot be below zero");
+        if (maxHP <= 0){
+            throw new IllegalArgumentException("Max HP must be greater than 0");
         }
 
         this.name = name;
@@ -45,10 +45,15 @@ public class Hero {
         if (amount < 0){
             throw new IllegalArgumentException("Amount cannot be negative");
         }
-        if (amount > getCurrentHP()){
-            throw new IllegalArgumentException("Amount cannot be greater than the current HP");
+
+        if ((getCurrentHP() - amount) < 0){
+
+            this.currentHP = 0;
+
+        } else{
+
+            this.currentHP = getCurrentHP() - amount;
         }
-        this.currentHP = getCurrentHP() - amount;
     }
 
     public void heal(int amount){
@@ -71,5 +76,19 @@ public class Hero {
         }
 
     }
+
+    public boolean isAlive(){
+
+        return getCurrentHP() > 0;
+    }
+
+    public void levelUp(){
+
+        this.level += 1;
+        this.maxHP += 10;
+        this.currentHP = maxHP;
+    }
+
+
 
 }
